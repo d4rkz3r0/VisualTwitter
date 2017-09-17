@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="VisualTweetItem" customModule="VisualTwitter" customModuleProvider="target">
             <connections>
+                <outlet property="imageView" destination="ybQ-5Z-Vk8" id="cGc-5s-1vh"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -19,7 +20,7 @@
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ybQ-5Z-Vk8">
                     <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="placeHolder" id="VHz-98-6k1"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="VHz-98-6k1"/>
                 </imageView>
             </subviews>
             <constraints>
@@ -29,9 +30,6 @@
                 <constraint firstItem="ybQ-5Z-Vk8" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="xGR-AO-N3z"/>
             </constraints>
         </customView>
-        <collectionViewItem id="NqK-lK-SOM" customClass="VisualTweetItem" customModule="VisualTwitter" customModuleProvider="target"/>
+        <collectionViewItem id="ycR-8T-ybq" customClass="VisualTweetItem" customModule="VisualTwitter" customModuleProvider="target"/>
     </objects>
-    <resources>
-        <image name="placeHolder" width="128" height="128"/>
-    </resources>
 </document>

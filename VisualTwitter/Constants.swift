@@ -10,10 +10,10 @@ import Foundation
 import OAuthSwift
 
 //CocoaTouch
-let itemSize = NSSize(width: 200, height: 200);
-let itemBorderSpacing = EdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0);
-let minItemRowSpacing = CGFloat(5.0);
-let minInterItemSpacing = CGFloat(5.0);
+let itemSize = NSSize(width: 375, height: 375);
+let itemBorderSpacing = EdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0);
+let minItemRowSpacing = CGFloat(20.0);
+let minInterItemSpacing = CGFloat(10.0);
 let visualTweetItemIdentifier = "VisualTweetItem"
 
 

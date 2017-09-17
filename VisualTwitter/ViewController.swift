@@ -9,6 +9,7 @@
 import Cocoa
 import OAuthSwift
 import SwiftyJSON
+import Kingfisher
 
 class ViewController: NSViewController
 {
@@ -16,6 +17,10 @@ class ViewController: NSViewController
     @IBOutlet weak var loginLogoutButton: NSButton!
     @IBOutlet weak var collectionView: NSCollectionView!
 
+    //Tweet Image URLs
+    var imageURLS: [URL] = [];
+    var tweetURLS: [URL] = [];
+    
     override func viewDidLoad()
     {
         super.viewDidLoad();
@@ -59,14 +64,23 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 50;
+        return imageURLS.count;
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem
     {
         guard let vVisualTweetItem = collectionView.makeItem(withIdentifier: visualTweetItemIdentifier, for: indexPath) as? VisualTweetItem else { fatalError("Could not find a class/xib with the name: \(visualTweetItemIdentifier)"); }
         
+        vVisualTweetItem.imageView?.kf.setImage(with: imageURLS[indexPath.item]);
         return vVisualTweetItem;
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>)
+    {
+        collectionView.deselectAll(nil);
+        
+        guard let vSelectedTweetIndex = indexPaths.first?.item else { return; }
+        NSWorkspace.shared().open(tweetURLS[vSelectedTweetIndex]);
     }
 }
 
@@ -90,13 +104,8 @@ extension ViewController
     
     fileprivate func getTimelineTweetImages()
     {
-        
-        let _ = oauthswift.client.get(Timeline_API_ENDPOINT, parameters: ["tweet_mode":"extended"], success: { response in
-            //guard let vDataString = response.string else { return; }
-            //print(vDataString);
-            
-            var imageURLS: [URL] = [];
-            
+        let _ = oauthswift.client.get(Timeline_API_ENDPOINT, parameters: ["tweet_mode":"extended", "count":200], success: { response in
+
             let json = JSON(data: response.data);
             for (_, tweetJSON):(String, JSON) in json
             {
@@ -104,10 +113,16 @@ extension ViewController
                 {
                     if let vImageURL = URL(string: mediaJSON["media_url_https"].stringValue)
                     {
-                        imageURLS.append(vImageURL);
+                        self.imageURLS.append(vImageURL);
+                    }
+                    if let vTweetURL = URL(string: mediaJSON["expanded_url"].stringValue)
+                    {
+                        self.tweetURLS.append(vTweetURL);
                     }
                 }
             }
+
+            self.collectionView.reloadData();
             
         }, failure: { error in print(error.localizedDescription); });
     }
