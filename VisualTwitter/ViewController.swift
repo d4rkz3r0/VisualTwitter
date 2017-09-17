@@ -14,16 +14,13 @@ class ViewController: NSViewController
 {
     //MARK: IBOutlets
     @IBOutlet weak var loginLogoutButton: NSButton!
+    @IBOutlet weak var collectionView: NSCollectionView!
 
-    //User
-    let userToken: String? = nil;
-    let userTokenSecret: String? = nil;
-    var isUserLoggedIn = false;
-    
-    
     override func viewDidLoad()
     {
         super.viewDidLoad();
+        
+        initUI();
         
         if userHasSavedTokens()
         {
@@ -32,11 +29,8 @@ class ViewController: NSViewController
             getTimelineTweetImages();
         }
     }
-}
-
-//MARK: IBActions
-extension ViewController
-{
+    
+    //MARK: IBActions
     @IBAction func loginLogoutButtonClicked(_ sender: Any)
     {
         if loginLogoutButton.title == "Log In" && !userHasSavedTokens()
@@ -50,45 +44,36 @@ extension ViewController
     }
 }
 
-//MARK: Helper Funcs
-extension ViewController
+//MARK: Collection View
+extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource
 {
-    func userHasSavedTokens() -> Bool
+    fileprivate func initUI()
     {
-        guard UserDefaults.standard.string(forKey: "userToken") != nil, UserDefaults.standard.string(forKey: "userTokenSecret") != nil else { return false; }
-        return true;
+        let collectionViewFlowLayout = NSCollectionViewFlowLayout();
+        collectionViewFlowLayout.itemSize = itemSize;
+        collectionViewFlowLayout.sectionInset = itemBorderSpacing;
+        collectionViewFlowLayout.minimumLineSpacing = minItemRowSpacing;
+        collectionViewFlowLayout.minimumInteritemSpacing = minInterItemSpacing;
+        collectionView.collectionViewLayout = collectionViewFlowLayout;
     }
     
-    func saveUserTokens(userCredential: OAuthSwiftCredential)
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        loginLogoutButton.title = "Log Out";
-        UserDefaults.standard.set(userCredential.oauthToken, forKey: "userToken");
-        UserDefaults.standard.set(userCredential.oauthTokenSecret, forKey: "userTokenSecret");
-        UserDefaults.standard.synchronize();
+        return 50;
     }
     
-    func getUserTokens()
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem
     {
-        guard let vOAuthToken = UserDefaults.standard.string(forKey: "userToken"), let vOAuthTokenSecret = UserDefaults.standard.string(forKey: "userTokenSecret") else { return; }
-        oauthswift.client.credential.oauthToken = vOAuthToken;
-        oauthswift.client.credential.oauthTokenSecret = vOAuthTokenSecret;
+        guard let vVisualTweetItem = collectionView.makeItem(withIdentifier: visualTweetItemIdentifier, for: indexPath) as? VisualTweetItem else { fatalError("Could not find a class/xib with the name: \(visualTweetItemIdentifier)"); }
+        
+        return vVisualTweetItem;
     }
-    
-    func eraseUserTokens()
-    {
-        loginLogoutButton.title = "Log In";
-        UserDefaults.standard.removeObject(forKey: "userToken");
-        UserDefaults.standard.removeObject(forKey: "userTokenSecret");
-        UserDefaults.standard.synchronize();
-    }
-    
-
 }
 
 //MARK: Twitter API Calls
 extension ViewController
 {
-    func twitterLogin()
+    fileprivate func twitterLogin()
     {
         oauthswift.authorize( withCallbackURL: OAuthCallBackURL, success: { credential, response, parameters in
             
@@ -98,15 +83,15 @@ extension ViewController
         }, failure: { error in print(error.localizedDescription); });
     }
     
-    func twitterLogout()
+    fileprivate func twitterLogout()
     {
         eraseUserTokens();
     }
     
-    func getTimelineTweetImages()
+    fileprivate func getTimelineTweetImages()
     {
         
-        let _ = oauthswift.client.get("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters: ["tweet_mode":"extended"], success: { response in
+        let _ = oauthswift.client.get(Timeline_API_ENDPOINT, parameters: ["tweet_mode":"extended"], success: { response in
             //guard let vDataString = response.string else { return; }
             //print(vDataString);
             
@@ -123,9 +108,40 @@ extension ViewController
                     }
                 }
             }
-            print(imageURLS);
-            
             
         }, failure: { error in print(error.localizedDescription); });
+    }
+}
+
+//MARK: Helper Funcs
+extension ViewController
+{
+    fileprivate func userHasSavedTokens() -> Bool
+    {
+        guard UserDefaults.standard.string(forKey: UserDefaults_UserTokenKey) != nil, UserDefaults.standard.string(forKey: UserDefaults_UserTokenSecretKey) != nil else { return false; }
+        return true;
+    }
+    
+    fileprivate func getUserTokens()
+    {
+        guard let vOAuthToken = UserDefaults.standard.string(forKey: UserDefaults_UserTokenKey), let vOAuthTokenSecret = UserDefaults.standard.string(forKey: UserDefaults_UserTokenSecretKey) else { return; }
+        oauthswift.client.credential.oauthToken = vOAuthToken;
+        oauthswift.client.credential.oauthTokenSecret = vOAuthTokenSecret;
+    }
+    
+    fileprivate func saveUserTokens(userCredential: OAuthSwiftCredential)
+    {
+        loginLogoutButton.title = "Log Out";
+        UserDefaults.standard.set(userCredential.oauthToken, forKey: UserDefaults_UserTokenKey);
+        UserDefaults.standard.set(userCredential.oauthTokenSecret, forKey: UserDefaults_UserTokenSecretKey);
+        UserDefaults.standard.synchronize();
+    }
+    
+    fileprivate func eraseUserTokens()
+    {
+        loginLogoutButton.title = "Log In";
+        UserDefaults.standard.removeObject(forKey: UserDefaults_UserTokenKey);
+        UserDefaults.standard.removeObject(forKey: UserDefaults_UserTokenSecretKey);
+        UserDefaults.standard.synchronize();
     }
 }
