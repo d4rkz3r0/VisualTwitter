@@ -12,42 +12,100 @@ import SwiftyJSON
 
 class ViewController: NSViewController
 {
-    //OAuth1.0 Authentication
-    let oauthswift = OAuth1Swift(
-        consumerKey:    Consumer_API_KEY,
-        consumerSecret: Consumer_API_SECRET,
-        requestTokenUrl: "https://api.twitter.com/oauth/request_token",
-        authorizeUrl:    "https://api.twitter.com/oauth/authorize",
-        accessTokenUrl:  "https://api.twitter.com/oauth/access_token");
+    //MARK: IBOutlets
+    @IBOutlet weak var loginLogoutButton: NSButton!
 
+    //User
+    let userToken: String? = nil;
+    let userTokenSecret: String? = nil;
+    var isUserLoggedIn = false;
+    
+    
     override func viewDidLoad()
     {
         super.viewDidLoad();
-        getUserAccessTokens();
+        
+        if userHasSavedTokens()
+        {
+            loginLogoutButton.title = "Log Out";
+            getUserTokens();
+            getTimelineTweetImages();
+        }
     }
+}
 
-    func getUserAccessTokens()
+//MARK: IBActions
+extension ViewController
+{
+    @IBAction func loginLogoutButtonClicked(_ sender: Any)
+    {
+        if loginLogoutButton.title == "Log In" && !userHasSavedTokens()
+        {
+            twitterLogin();
+        }
+        else
+        {
+            twitterLogout();
+        }
+    }
+}
+
+//MARK: Helper Funcs
+extension ViewController
+{
+    func userHasSavedTokens() -> Bool
+    {
+        guard UserDefaults.standard.string(forKey: "userToken") != nil, UserDefaults.standard.string(forKey: "userTokenSecret") != nil else { return false; }
+        return true;
+    }
+    
+    func saveUserTokens(userCredential: OAuthSwiftCredential)
+    {
+        loginLogoutButton.title = "Log Out";
+        UserDefaults.standard.set(userCredential.oauthToken, forKey: "userToken");
+        UserDefaults.standard.set(userCredential.oauthTokenSecret, forKey: "userTokenSecret");
+        UserDefaults.standard.synchronize();
+    }
+    
+    func getUserTokens()
+    {
+        guard let vOAuthToken = UserDefaults.standard.string(forKey: "userToken"), let vOAuthTokenSecret = UserDefaults.standard.string(forKey: "userTokenSecret") else { return; }
+        oauthswift.client.credential.oauthToken = vOAuthToken;
+        oauthswift.client.credential.oauthTokenSecret = vOAuthTokenSecret;
+    }
+    
+    func eraseUserTokens()
+    {
+        loginLogoutButton.title = "Log In";
+        UserDefaults.standard.removeObject(forKey: "userToken");
+        UserDefaults.standard.removeObject(forKey: "userTokenSecret");
+        UserDefaults.standard.synchronize();
+    }
+    
+
+}
+
+//MARK: Twitter API Calls
+extension ViewController
+{
+    func twitterLogin()
     {
         oauthswift.authorize( withCallbackURL: OAuthCallBackURL, success: { credential, response, parameters in
             
-            //print(credential.oauthToken)
-            //print(credential.oauthTokenSecret)
-            self.getUserTimelineTweets();
+            self.saveUserTokens(userCredential: credential);
+            self.getTimelineTweetImages();
             
         }, failure: { error in print(error.localizedDescription); });
     }
     
-    func getUserFollowers()
+    func twitterLogout()
     {
-        let _ = oauthswift.client.get("https://api.twitter.com/1.1/favorites/list.json", success: { response in
-            guard let vDataString = response.string else { return; }
-            print(vDataString);
-            
-        }, failure: { error in print(error.localizedDescription); });
+        eraseUserTokens();
     }
     
-    func getUserTimelineTweets()
+    func getTimelineTweetImages()
     {
+        
         let _ = oauthswift.client.get("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters: ["tweet_mode":"extended"], success: { response in
             //guard let vDataString = response.string else { return; }
             //print(vDataString);
