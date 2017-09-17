@@ -16,10 +16,14 @@ class ViewController: NSViewController
     //MARK: IBOutlets
     @IBOutlet weak var loginLogoutButton: NSButton!
     @IBOutlet weak var collectionView: NSCollectionView!
-
+    @IBOutlet weak var reloadButton: NSButton!
+    
     //Tweet Image URLs
     var imageURLS: [URL] = [];
     var tweetURLS: [URL] = [];
+    
+    //Refresh
+    var timer: Timer?;
     
     override func viewDidLoad()
     {
@@ -47,6 +51,14 @@ class ViewController: NSViewController
             twitterLogout();
         }
     }
+    
+    @IBAction func reloadTimelineButtonClicked(_ sender: Any)
+    {
+        guard userHasSavedTokens(), (timer?.isValid)! else { print("not logged in or timer is not init"); return; }
+        clearUI();
+        getTimelineTweetImages();
+        reloadButton.isEnabled = false;
+    }
 }
 
 //MARK: Collection View
@@ -60,6 +72,13 @@ extension ViewController: NSCollectionViewDelegate, NSCollectionViewDataSource
         collectionViewFlowLayout.minimumLineSpacing = minItemRowSpacing;
         collectionViewFlowLayout.minimumInteritemSpacing = minInterItemSpacing;
         collectionView.collectionViewLayout = collectionViewFlowLayout;
+    }
+    
+    fileprivate func clearUI()
+    {
+        imageURLS.removeAll(keepingCapacity: true);
+        tweetURLS.removeAll(keepingCapacity: true);
+        collectionView.reloadData();
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int
@@ -99,29 +118,57 @@ extension ViewController
     
     fileprivate func twitterLogout()
     {
+        disableTimer();
         eraseUserTokens();
+        clearUI();
     }
     
     fileprivate func getTimelineTweetImages()
     {
-        let _ = oauthswift.client.get(Timeline_API_ENDPOINT, parameters: ["tweet_mode":"extended", "count":200], success: { response in
-
+        initTimer();
+        
+        let _ = oauthswift.client.get(Timeline_API_ENDPOINT, parameters: ["tweet_mode":"extended", "count":Tweet_FETCH_COUNT], success: { response in
+            
             let json = JSON(data: response.data);
+            
+            //Tweet Parsing
             for (_, tweetJSON):(String, JSON) in json
             {
-                for (_, mediaJSON):(String, JSON) in tweetJSON["entities"]["media"]
+                //ReTweet Tracking
+                var isAnRT = false;
+                
+                //ReTweets
+                for (_, mediaJSON):(String, JSON) in tweetJSON["retweeted_status"]["extended_entities"]["media"]
                 {
-                    if let vImageURL = URL(string: mediaJSON["media_url_https"].stringValue)
+                    isAnRT = true;
+                    
+                    if let vRTImageURL = URL(string: mediaJSON["media_url_https"].stringValue)
                     {
-                        self.imageURLS.append(vImageURL);
+                        self.imageURLS.append(vRTImageURL);
                     }
-                    if let vTweetURL = URL(string: mediaJSON["expanded_url"].stringValue)
+                    if let vRTweetURL = URL(string: mediaJSON["expanded_url"].stringValue)
                     {
-                        self.tweetURLS.append(vTweetURL);
+                        self.tweetURLS.append(vRTweetURL);
+                    }
+                }
+                
+                //Regular Tweets
+                if !isAnRT
+                {
+                    for (_, mediaJSON):(String, JSON) in tweetJSON["extended_entities"]["media"]
+                    {
+                        if let vImageURL = URL(string: mediaJSON["media_url_https"].stringValue)
+                        {
+                            self.imageURLS.append(vImageURL);
+                        }
+                        if let vTweetURL = URL(string: mediaJSON["expanded_url"].stringValue)
+                        {
+                            self.tweetURLS.append(vTweetURL);
+                        }
                     }
                 }
             }
-
+            
             self.collectionView.reloadData();
             
         }, failure: { error in print(error.localizedDescription); });
@@ -158,5 +205,20 @@ extension ViewController
         UserDefaults.standard.removeObject(forKey: UserDefaults_UserTokenKey);
         UserDefaults.standard.removeObject(forKey: UserDefaults_UserTokenSecretKey);
         UserDefaults.standard.synchronize();
+    }
+    
+    fileprivate func initTimer()
+    {
+        timer = Timer.scheduledTimer(withTimeInterval: Timeline_REFRESH_INTERVAL, repeats: true, block: { (timer) in
+            self.reloadButton.isEnabled = true;
+        });
+    }
+    
+    fileprivate func disableTimer()
+    {
+        if (timer?.isValid)!
+        {
+            timer!.invalidate();
+        }
     }
 }

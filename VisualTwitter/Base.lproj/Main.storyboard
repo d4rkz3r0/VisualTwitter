@@ -734,11 +734,27 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2lY-Eg-mBP">
+                                <rect key="frame" x="1122" y="733" width="62" height="61"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="jzw-ee-Ach"/>
+                                    <constraint firstAttribute="width" constant="50" id="xmM-Wf-Gjo"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="♻️" bezelStyle="rounded" imagePosition="overlaps" alignment="center" lineBreakMode="charWrapping" enabled="NO" borderStyle="border" inset="2" id="9Xw-JN-xyS">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system" size="18"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="reloadTimelineButtonClicked:" target="XfG-lQ-9wD" id="qe3-bh-bZJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="TmQ-mu-pj8" secondAttribute="bottom" constant="10" id="2FW-LJ-yRP"/>
+                            <constraint firstItem="2lY-Eg-mBP" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="10" id="Bn3-cd-b0f"/>
                             <constraint firstItem="OkA-Dz-P53" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="10" id="C4C-7t-O4L"/>
                             <constraint firstItem="OkA-Dz-P53" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="HYp-oR-Pmd"/>
+                            <constraint firstAttribute="trailing" secondItem="2lY-Eg-mBP" secondAttribute="trailing" constant="22" id="Hag-Cm-gQz"/>
                             <constraint firstItem="8eO-6O-Ast" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="flf-LB-9Tk"/>
                             <constraint firstItem="TmQ-mu-pj8" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="10" id="uUs-JQ-sSs"/>
                             <constraint firstItem="TmQ-mu-pj8" firstAttribute="top" secondItem="8eO-6O-Ast" secondAttribute="bottom" constant="10" id="vaU-wA-92v"/>
@@ -749,6 +765,7 @@
                     <connections>
                         <outlet property="collectionView" destination="zYK-3Y-7iE" id="QHP-Ls-uzK"/>
                         <outlet property="loginLogoutButton" destination="8eO-6O-Ast" id="cqj-im-F5v"/>
+                        <outlet property="reloadButton" destination="2lY-Eg-mBP" id="4OF-C9-Ze1"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
