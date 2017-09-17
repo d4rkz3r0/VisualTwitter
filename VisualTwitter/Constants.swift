@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+let OAuthCallBackURL: URL = URL(string: "VisualTwitter://loginSuccess")!;
+let Consumer_API_KEY = "*";
+let Consumer_API_SECRET = "*";

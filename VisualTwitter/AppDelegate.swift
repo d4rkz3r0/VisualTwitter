@@ -7,17 +7,26 @@
 //
 
 import Cocoa
+import OAuthSwift
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate
 {
     func applicationDidFinishLaunching(_ aNotification: Notification)
     {
-        // Insert code here to initialize your application
+        //Register to respond to kAEGetURL event.
+        NSAppleEventManager.shared().setEventHandler(self, andSelector:#selector(AppDelegate.handleGetURL(event:withReplyEvent:)),
+                                                     forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL));
+    }
+    
+    func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!)
+    {
+        guard let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue, let url = URL(string: urlString) else { return; }
+        OAuthSwift.handle(url: url)
     }
 
     func applicationWillTerminate(_ aNotification: Notification)
     {
-        // Insert code here to tear down your application
+        
     }
 }
