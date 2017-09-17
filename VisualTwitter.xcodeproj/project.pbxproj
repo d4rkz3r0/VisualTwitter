@@ -1,0 +1,322 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BE8955571F6E3367007A4BAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8955561F6E3367007A4BAA /* AppDelegate.swift */; };
+		BE8955591F6E3367007A4BAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8955581F6E3367007A4BAA /* ViewController.swift */; };
+		BE89555B1F6E3367007A4BAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE89555A1F6E3367007A4BAA /* Assets.xcassets */; };
+		BE89555E1F6E3367007A4BAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE89555C1F6E3367007A4BAA /* Main.storyboard */; };
+		BE8955681F6E34D9007A4BAA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8955671F6E34D9007A4BAA /* Constants.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BE8955531F6E3367007A4BAA /* VisualTwitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisualTwitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE8955561F6E3367007A4BAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BE8955581F6E3367007A4BAA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BE89555A1F6E3367007A4BAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BE89555D1F6E3367007A4BAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BE89555F1F6E3367007A4BAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE8955671F6E34D9007A4BAA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BE8955501F6E3367007A4BAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BE89554A1F6E3367007A4BAA = {
+			isa = PBXGroup;
+			children = (
+				BE8955551F6E3367007A4BAA /* VisualTwitter */,
+				BE8955541F6E3367007A4BAA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BE8955541F6E3367007A4BAA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE8955531F6E3367007A4BAA /* VisualTwitter.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE8955551F6E3367007A4BAA /* VisualTwitter */ = {
+			isa = PBXGroup;
+			children = (
+				BE8955651F6E33D9007A4BAA /* App */,
+				BE8955661F6E34C7007A4BAA /* Utils */,
+				BE8955581F6E3367007A4BAA /* ViewController.swift */,
+			);
+			path = VisualTwitter;
+			sourceTree = "<group>";
+		};
+		BE8955651F6E33D9007A4BAA /* App */ = {
+			isa = PBXGroup;
+			children = (
+				BE89555A1F6E3367007A4BAA /* Assets.xcassets */,
+				BE8955561F6E3367007A4BAA /* AppDelegate.swift */,
+				BE89555C1F6E3367007A4BAA /* Main.storyboard */,
+				BE89555F1F6E3367007A4BAA /* Info.plist */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		BE8955661F6E34C7007A4BAA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BE8955671F6E34D9007A4BAA /* Constants.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BE8955521F6E3367007A4BAA /* VisualTwitter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE8955621F6E3367007A4BAA /* Build configuration list for PBXNativeTarget "VisualTwitter" */;
+			buildPhases = (
+				BE89554F1F6E3367007A4BAA /* Sources */,
+				BE8955501F6E3367007A4BAA /* Frameworks */,
+				BE8955511F6E3367007A4BAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VisualTwitter;
+			productName = VisualTwitter;
+			productReference = BE8955531F6E3367007A4BAA /* VisualTwitter.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BE89554B1F6E3367007A4BAA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Steve Kerney";
+				TargetAttributes = {
+					BE8955521F6E3367007A4BAA = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9CJ6R2F96D;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = BE89554E1F6E3367007A4BAA /* Build configuration list for PBXProject "VisualTwitter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BE89554A1F6E3367007A4BAA;
+			productRefGroup = BE8955541F6E3367007A4BAA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BE8955521F6E3367007A4BAA /* VisualTwitter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BE8955511F6E3367007A4BAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE89555B1F6E3367007A4BAA /* Assets.xcassets in Resources */,
+				BE89555E1F6E3367007A4BAA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE89554F1F6E3367007A4BAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE8955591F6E3367007A4BAA /* ViewController.swift in Sources */,
+				BE8955571F6E3367007A4BAA /* AppDelegate.swift in Sources */,
+				BE8955681F6E34D9007A4BAA /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BE89555C1F6E3367007A4BAA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE89555D1F6E3367007A4BAA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BE8955601F6E3367007A4BAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BE8955611F6E3367007A4BAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		BE8955631F6E3367007A4BAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9CJ6R2F96D;
+				INFOPLIST_FILE = VisualTwitter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.d4rkz3r0.VisualTwitter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		BE8955641F6E3367007A4BAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9CJ6R2F96D;
+				INFOPLIST_FILE = VisualTwitter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.d4rkz3r0.VisualTwitter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BE89554E1F6E3367007A4BAA /* Build configuration list for PBXProject "VisualTwitter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE8955601F6E3367007A4BAA /* Debug */,
+				BE8955611F6E3367007A4BAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE8955621F6E3367007A4BAA /* Build configuration list for PBXNativeTarget "VisualTwitter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE8955631F6E3367007A4BAA /* Debug */,
+				BE8955641F6E3367007A4BAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BE89554B1F6E3367007A4BAA /* Project object */;
+}
