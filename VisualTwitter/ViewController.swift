@@ -8,6 +8,7 @@
 
 import Cocoa
 import OAuthSwift
+import SwiftyJSON
 
 class ViewController: NSViewController
 {
@@ -17,7 +18,7 @@ class ViewController: NSViewController
         consumerSecret: Consumer_API_SECRET,
         requestTokenUrl: "https://api.twitter.com/oauth/request_token",
         authorizeUrl:    "https://api.twitter.com/oauth/authorize",
-        accessTokenUrl:  "https://api.twitter.com/oauth/access_token")
+        accessTokenUrl:  "https://api.twitter.com/oauth/access_token");
 
     override func viewDidLoad()
     {
@@ -29,9 +30,44 @@ class ViewController: NSViewController
     {
         oauthswift.authorize( withCallbackURL: OAuthCallBackURL, success: { credential, response, parameters in
             
-                print(credential.oauthToken)
-                print(credential.oauthTokenSecret)
-                print(parameters["user_id"]!)
+            //print(credential.oauthToken)
+            //print(credential.oauthTokenSecret)
+            self.getUserTimelineTweets();
+            
+        }, failure: { error in print(error.localizedDescription); });
+    }
+    
+    func getUserFollowers()
+    {
+        let _ = oauthswift.client.get("https://api.twitter.com/1.1/favorites/list.json", success: { response in
+            guard let vDataString = response.string else { return; }
+            print(vDataString);
+            
+        }, failure: { error in print(error.localizedDescription); });
+    }
+    
+    func getUserTimelineTweets()
+    {
+        let _ = oauthswift.client.get("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters: ["tweet_mode":"extended"], success: { response in
+            //guard let vDataString = response.string else { return; }
+            //print(vDataString);
+            
+            var imageURLS: [URL] = [];
+            
+            let json = JSON(data: response.data);
+            for (_, tweetJSON):(String, JSON) in json
+            {
+                for (_, mediaJSON):(String, JSON) in tweetJSON["entities"]["media"]
+                {
+                    if let vImageURL = URL(string: mediaJSON["media_url_https"].stringValue)
+                    {
+                        imageURLS.append(vImageURL);
+                    }
+                }
+            }
+            print(imageURLS);
+            
+            
         }, failure: { error in print(error.localizedDescription); });
     }
 }

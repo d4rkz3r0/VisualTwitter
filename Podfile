@@ -7,4 +7,5 @@ target 'VisualTwitter' do
 
   # Pods for VisualTwitter
 pod 'OAuthSwift', '~> 1.1.2'
+pod 'SwiftyJSON'
 end

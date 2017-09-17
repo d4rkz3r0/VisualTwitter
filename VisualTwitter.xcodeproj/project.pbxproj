@@ -70,8 +70,8 @@
 			isa = PBXGroup;
 			children = (
 				BE8955651F6E33D9007A4BAA /* App */,
+				BEF3B8461F6E440700832C24 /* ViewControllers */,
 				BE8955661F6E34C7007A4BAA /* Utils */,
-				BE8955581F6E3367007A4BAA /* ViewController.swift */,
 			);
 			path = VisualTwitter;
 			sourceTree = "<group>";
@@ -93,6 +93,14 @@
 				BE8955671F6E34D9007A4BAA /* Constants.swift */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		BEF3B8461F6E440700832C24 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE8955581F6E3367007A4BAA /* ViewController.swift */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		F16A69FDA9BC8A34BEEA9876 /* Pods */ = {
@@ -198,10 +206,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VisualTwitter/Pods-VisualTwitter-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
